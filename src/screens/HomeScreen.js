@@ -1,65 +1,51 @@
+import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Card from '../components/Card';
-import ListService from '../components/ListService';
-import RecentTransaction from '../components/RecentTransaction';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const data = [
+  {
+    id: 1,
+    question: ` What is the Capital Of India ?`,
+    options: [`New Delhi`, `Mumbai`, `Kolkatta`],
+    answer: `New Delhi`,
+  },
+  {
+    id: 2,
+    question: `Who is the CEO of Tesla Motors?`,
+    options: [`Bill Gates`, `Steve Jobs`, `Elon Musk`],
+    answer: `Elon Musk`,
+  },
+  {
+    id: 3,
+    question: `Name World's Richest Man?`,
+    options: [`Jeff Bezo`, `Bill Gates`, `Mark Zuckerberg`],
+    answer: `Jeff Bezo`,
+  },
+];
 
 const HomeScreen = () => {
-  const clearOnboarding = async () => {
-    try {
-      await AsyncStorage.removeItem('@viewedOnboarding');
-    } catch (error) {
-      console.log('error', error);
-    }
+  const renderItem = item => {
+    const dataItem = item?.item;
+    
+    return (
+      <View style={{top: 300}}>
+        <Text>{dataItem?.question}</Text>
+
+      </View>
+    );
   };
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ScrollView style={styles.container}>
-        <View style={styles.header}>
-          <View>
-            <Text>Hello</Text>
-            <Text style={styles.userName}>{'Phan Khac Cuong'}</Text>
-          </View>
-          <TouchableOpacity onPress={clearOnboarding}>
-            <Image source={require('../assets/ic_notif.png')} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.card}>
-          <Card />
-        </View>
-        <ListService />
-        <RecentTransaction />
-      </ScrollView>
-    </SafeAreaView>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <FlatList
+        data={data}
+        keyExtractor={item => item?.id}
+        renderItem={renderItem}
+        // contentContainerStyle={{backgroundColor: }}
+      />
+    </View>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    padding: 24,
-  },
-  userName: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  card: {
-    paddingVertical: 14,
-  },
-});
+const styles = StyleSheet.create({});

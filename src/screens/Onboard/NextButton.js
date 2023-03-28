@@ -3,7 +3,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import Svg, {G, Circle} from 'react-native-svg';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const NextButton = ({percentage, scrollTo}) => {
+const NextButton = ({percentage, scrollTo, disabled}) => {
   const size = 128;
   const strokeWidth = 3;
   const center = size / 2;
@@ -43,7 +43,6 @@ const NextButton = ({percentage, scrollTo}) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text>NextButton</Text> */}
       <Svg width={size} height={size}>
         <G rotation={-90} origin={center}>
           <Circle
@@ -66,8 +65,9 @@ const NextButton = ({percentage, scrollTo}) => {
         </G>
       </Svg>
       <TouchableOpacity
+        disabled={disabled}
         onPress={scrollTo}
-        style={styles.button}
+        style={disabled ? styles.buttonInActive : styles.buttonActive}
         size={32}
         activeOpacity={0.6}>
         <Ionicons name="arrow-forward-circle-sharp" size={36} color="#fff" />
@@ -84,7 +84,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  button: {
+  buttonInActive: {
+    position: 'absolute',
+    backgroundColor: '#d8d8d8',
+    borderRadius: 100,
+    padding: 24,
+  },
+  buttonActive: {
     position: 'absolute',
     backgroundColor: '#36cfc9',
     borderRadius: 100,
