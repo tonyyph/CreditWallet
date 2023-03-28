@@ -1,12 +1,5 @@
-import React, {useState} from 'react';
-import {
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 
 const QuestionItem = ({item}) => {
   const {width} = useWindowDimensions();
